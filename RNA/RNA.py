@@ -1,10 +1,6 @@
-# Transcribing DNA into RNA
-
-
 def dna_to_rna(file_loc):
     with open(file_loc) as file:
         dna_sequence = file.read().strip()
-
     rna_sequence = ""
     for base in dna_sequence:
         if base == "T":
@@ -24,3 +20,11 @@ dna_to_rna("RNA/rosalind_chal_rna.txt")
 #     print(dna.replace("T", "U"))
 
 # Better solution but mine is still functional
+
+# Solution using biopython
+# from Bio.Seq import Seq
+# def dna_to_rna(file_loc):
+#     with open(file_loc) as file:
+#         dna_sequence = file.read().strip()
+
+#     print(Seq(dna_sequence).transcribe())

@@ -1,6 +1,8 @@
 # Rosalind Bioinformatics Challenge Solutions
 
-🧬 This repository contains my solutions to problems from the [Rosalind](https://rosalind.info/) platform — a collection of bioinformatics programming challenges designed to teach computational biology through hands on problem solving.
+🧬 This repository contains my solutions to problems from the [Rosalind](https://rosalind.info/) platform 
+
+*some off these challanges were completed before I had learnt any Biopython I have added the solutions to some of the problems using Biopython commented out underneath.
 
 ---
 
