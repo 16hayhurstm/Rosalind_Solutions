@@ -2,48 +2,71 @@
 
 
 def get_the_sequence(file_loc):
+    # Read the second line from file and split into list
     with open(file_loc, "r") as file:
         lines = file.readlines()
     pi = lines[1].split()
     return pi
 
 
-pi = get_the_sequence("LGIS/trial.txt")
+# Get input sequence from file
+pi = get_the_sequence("LGIS/rosalind_lgis.txt")
 
 
-def lisRec(nums, index, prev_index, memo):
-    # Base case
-    if index == len(nums):
-        return []
+def LIS(sequences):
 
-    # Check memo
-    key = (index, prev_index)
-    if key in memo:
-        return memo[key]
+    # Initialize tuples: one per element, holding just itself
+    tups = [(int(c),) for c in pi]
 
-    # Option 1: skip current
-    not_take = lisRec(nums, index + 1, prev_index, memo)
+    # Build LIS for each position from right to left
+    for i_index in reversed(range(len(pi))):
+        best = ()  # Track best following subsequence
 
-    # Option 2: take current if valid
-    take = []
-    if prev_index == -1 or nums[index] > nums[prev_index]:
-        take = [nums[index]] + lisRec(nums, index + 1, index, memo)
+        # Check all elements to the right
+        for j in range(i_index + 1, len(pi)):
+            # Compare values: build LIS if increasing
+            if int(pi[j]) > int(pi[i_index]):
+                # Choose longer sequence if multiple options
+                if len(tups[j]) > len(best):
+                    best = tups[j]
 
-    # Choose longer one
-    if len(take) > len(not_take):
-        memo[key] = take
-    else:
-        memo[key] = not_take
+        # Prepend current value to best subsequence found
+        tups[i_index] = (int(pi[i_index]),) + best
 
-    return memo[key]
+    # Get the longest sequence found overall
+    answer = sorted(tups, key=len)[-1]
 
-
-def longestIncreasingSubsequence(nums):
-    memo = {}
-    return lisRec(nums, 0, -1, memo)
+    # Print as space-separated string
+    print("LIS;" + " ".join(map(str, answer)))
 
 
-LIS = longestIncreasingSubsequence(pi)
-LDS = longestIncreasingSubsequence(pi[::-1])[::-1]
-print("LIS:", LIS)
-print("LDS:", LDS)
+def LDS(sequences):
+
+    # Initialize tuples: one per element, holding just itself
+    tups = [(int(c),) for c in pi]
+
+    # Build LDS for each position from right to left
+    for i_index in reversed(range(len(pi))):
+        best = ()  # Track best following subsequence
+
+        # Check all elements to the right
+        for j in range(i_index + 1, len(pi)):
+            # Compare values
+            if int(pi[j]) < int(pi[i_index]):
+                # Choose longer sequence if multiple options
+                if len(tups[j]) > len(best):
+                    best = tups[j]
+
+        # Prepend current value to best subsequence found
+        tups[i_index] = (int(pi[i_index]),) + best
+
+    # Get the longest sequence found overall
+    answer = sorted(tups, key=len)[-1]
+
+    # Print as space-separated string
+    print("LDS;" + " ".join(map(str, answer)))
+
+
+# Print answers
+LIS(pi)
+LDS(pi)
