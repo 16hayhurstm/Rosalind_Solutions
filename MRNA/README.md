@@ -11,3 +11,5 @@ Given a protein string, determine the total number of different RNA strings from
 Every amino acid can be encoded by multiple RNA codons. Additionally, each valid RNA string must end with a **stop codon**, of which there are 3 possible choices.
 
 ---
+
+
